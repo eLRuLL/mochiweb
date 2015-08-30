@@ -296,8 +296,10 @@ start_response({Code, ResponseHeaders}, {?MODULE, [_Socket, _Opts, _Method, _Raw
 %% @doc Start the HTTP response by sending the Code HTTP response and
 %%      ResponseHeaders.
 start_raw_response({Code, ResponseHeaders}, {?MODULE, [_Socket, _Opts, _Method, _RawPath, _Version, _Headers]}=THIS) ->
+    error_logger:info_msg("start_raw_response: ResponseHeaders: ~p~n", [ResponseHeaders]),
     {Header, Response} = format_response_header({Code, ResponseHeaders}, THIS),
     send(Header, THIS),
+    error_logger:info_msg("start_raw_response: SendHeader ~p~n", [Header]),
     Response.
 
 
